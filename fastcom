@@ -1,0 +1,69 @@
+Installation: pip install --user fastcom-cli
+Running: Directly enter fastcom. It supports -j to output JSON format and -i to set the number of iterations .
+
+# common-error
+The package is indeed installed, but the terminal cannot find the fastcom command. This is because the executable script installed by pip3 install --user is 
+placed in a user-specific directory, which is usually not in your system's PATH environment variable.
+
+
+
+
+
+Solution: Add the directory to PATH
+You are using macOS (zsh), and the executable script is most likely located in ~/Library/Python/3.13/bin. Follow these steps to fix it:
+
+
+1. First, confirm the exact location
+
+Run the following command in the terminal to confirm the directory where Python installs user-level scripts for you:
+
+bash
+python3 -m site --user-base
+Typically it will output a path similar to /Users/yourusername/Library/Python/3.13. The actual location of the fastcom script is the bin subdirectory within that path.
+
+
+
+
+
+
+
+2. Edit your shell configuration file
+
+You need to add that bin directory to your PATH. Open your zsh configuration file (usually ~/.zshrc):
+
+bash
+nano ~/.zshrc
+Add the following line at the end of the file (be sure to replace YOUR_USERNAME with your actual username, or use the $HOME variable):
+
+bash
+export PATH="$HOME/Library/Python/3.13/bin:$PATH"
+Note: If you see a specific path from the command output in step 1, adjust the path above accordingly. The core is to point to the bin directory.
+
+
+
+
+
+
+
+3. Make the configuration take effect
+
+Save and exit the file, then run:
+
+bash
+source ~/.zshrc
+
+
+
+
+
+
+
+4. Verify and run
+
+Now try typing fastcom directly. If the configuration is correct, it should start normally.
+
+If you still get a command not found error, you can use find to confirm the script's location:
+
+bash
+find ~/Library/Python -name "fastcom" 2>/dev/null
+Once found, just ensure the directory shown in the result is added to the PATH above.
